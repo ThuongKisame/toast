@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div id="toast">
+            <!-- <div class="toast align-between toast--success">
+                <div class="toast__icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <div class="toast__body">
+                    <div class="toast__title">Success</div>
+                    <div class="toast__msg">Máy tính kết nối với windown, mac, ios !</div>
+                </div>
+                <div class="toast__close">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+            </div> -->
+        </div>
+
+        <div class="run-toast align-center">
+            <div onclick="showToastInfo();" class=" run-toast__btn">infor</div>
+            <div onclick="showToastWarning();" class=" run-toast__btn">warning</div>
+        </div>
+
+    </div>
+    <script>
+        function toast(
+            {
+                title,
+                message,
+                type,
+                duration
+            }) {
+
+            const main = document.querySelector('#toast');
+            if (main) {
+                const toast = document.createElement('div');
+                const icons = {
+                    success: '<i class="fa-solid fa-circle-check"></i>',
+                    warning: '<i class="fa-solid fa-triangle-exclamation"></i>',
+                    error: '<i class="fa-solid fa-circle-xmark"></i>',
+                    info: '<i class="fa-solid fa-circle-exclamation"></i>'
+                }
+                const autoRemove = setTimeout((e) => {
+                    main.removeChild(toast);
+                }, duration + 1000)
+                toast.onclick = (e) => {
+                    if (e.target.closest('.toast__close')) {
+                        main.removeChild(toast);
+                        clearTimeout(autoRemove);
+                    }
+                }
+                const secons = (duration / 1000).toFixed(2);
+                toast.classList.add('toast', 'align-between', `toast--${type}`);
+                toast.style.animation = `SlideInRight  ease .7s, fadeOut linear 1s ${secons}s forwards`;
+                toast.innerHTML = `
+                    <div class="toast__icon">
+                        ${icons[type]}
+                    </div>
+                    <div class="toast__body">
+                        <div class="toast__title">${title}</div>
+                        <div class="toast__msg">${message}</div>
+                    </div>
+                    <div class="toast__close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                `;
+                main.appendChild(toast);
+
+            }
+        }
+        toast(
+            {
+                title: 'Info',
+                message: 'Máy tính kết nối với windown, mac, ios !',
+                type: 'info',
+                duration: 3000
+            }
+        )
+        function showToastInfo() {
+            toast(
+                {
+                    title: 'Info',
+                    message: 'Máy tính kết nối với windown, mac, ios !',
+                    type: 'info',
+                    duration: 2000
+                }
+            )
+        }
+        function showToastWarning() {
+            toast(
+                {
+                    title: 'Warning',
+                    message: 'Máy tính kết nối với windown, mac, ios !',
+                    type: 'warning',
+                    duration: 3000
+                }
+            )
+        }
+        function showToastError() {
+            toast(
+                {
+                    title: 'Error',
+                    message: 'Máy tính kết nối với windown, mac, ios !',
+                    type: 'error',
+                    duration: 3000
+                }
+            )
+        }
+
+    </script>
+</body>
+<script src="./assets/js/javascript.js"></script>
+
+</html>
